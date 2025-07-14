@@ -1,0 +1,41 @@
+{
+  "name": "personal-task-manager",
+  "version": "1.0.0",
+  "description": "A personal task manager",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "ts-node-dev src/server.ts",
+    "build": "tsc -b",
+    "start": "node dist/server.js"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "PostgreSQL",
+    "ORM",
+    "Sequalize"
+  ],
+  "author": "gopal",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/morgan": "^1.9.10",
+    "@types/dotenv": "^8.2.3",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.0.10",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
