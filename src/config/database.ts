@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
-import { UserModel } from "../models";
+import { User } from "../models";
 import config from "../config";
 
 const DATABASE_URL = config.DATABASE_URL;
 
 export const sequelize = new Sequelize(DATABASE_URL as string, {
   dialect: "postgres",
-  models: [UserModel],
+  models: [User],
   dialectOptions: {
     ssl: {
       require: true,

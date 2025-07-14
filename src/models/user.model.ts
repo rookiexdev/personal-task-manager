@@ -10,11 +10,26 @@ import {
   Unique,
   AllowNull,
 } from "sequelize-typescript";
+import { Optional } from "sequelize";
+
+interface UserAttributes {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+type UserCreationAttributes = Optional<
+  UserAttributes,
+  "id" | "createdAt" | "updatedAt"
+>;
 
 @Table({
   tableName: "users",
 })
-class User extends Model<User> {
+class User extends Model<UserAttributes, UserCreationAttributes> {
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.INTEGER)
