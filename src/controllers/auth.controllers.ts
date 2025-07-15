@@ -49,7 +49,7 @@ export const registerController = async (req: Request, res: Response) => {
     if (!res.headersSent) {
       res
         .status(500)
-        .json({ message: "Internal server error", success: false });
+        .json({ message: "Failed to register user", success: false });
     }
   }
 };
@@ -75,10 +75,15 @@ export const loginController = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      res.status(400).json({ message: "User not found, Register first!", success: false });
+      res
+        .status(400)
+        .json({ message: "User not found, Register first!", success: false });
     }
 
-    const validPassword = await bcrypt.compare(password, user?.password as string);
+    const validPassword = await bcrypt.compare(
+      password,
+      user?.password as string
+    );
 
     if (!validPassword) {
       res.status(400).json({ message: "Invalid credentials", success: false });
@@ -98,9 +103,7 @@ export const loginController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Login successful", success: true, token });
   } catch (error) {
     if (!res.headersSent) {
-      res
-        .status(500)
-        .json({ message: "Internal server error", success: false });
+      res.status(500).json({ message: "Failed to login user", success: false });
     }
   }
 };
