@@ -1,8 +1,8 @@
 import app from "./app";
 import config from "./config";
-import { sequelize } from "./config/database";
+import { sequelize } from "./connections/sql";
 
-const PORT = config.port;
+const PORT = config.PORT;
 
 async function main() {
   try {
