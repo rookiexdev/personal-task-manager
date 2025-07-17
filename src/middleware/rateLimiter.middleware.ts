@@ -26,13 +26,13 @@ export const loginRateLimiterMiddleware = (
   const timePassed = time - userEntry?.time!;
   if (timePassed > WINDOW_IN_MS) {
     rateLimitMap.set(userIp, { attempts: 1, time });
-    return next();
+    next();
   }
 
   const userAttempts = userEntry?.attempts!;
 
   if (userAttempts >= MAX_ATTEMPTS) {
-    res.status(429).json({
+    return res.status(429).json({
       message: "Too many attempts. You are blocked for 1 hour.",
     });
   }
@@ -42,5 +42,5 @@ export const loginRateLimiterMiddleware = (
     time,
   });
 
-  return next();
+  next();
 };
