@@ -16,10 +16,6 @@ export const loginRateLimiter = rateLimit({
   skipSuccessfulRequests: false,
 });
 
-export const blockAfterLimit = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 0,
-  message: "You are temporarily blocked. Try again after 1 hour.",
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+export const loginRateLimiterMiddleware = () => {
+  
+}

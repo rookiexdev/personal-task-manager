@@ -1,9 +1,10 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import morgan from "morgan";
 
 import routes from "./routes";
+import logger from "./middleware/logger.middleware";
+
 const app = express();
 
 app.use(express.json());
@@ -15,7 +16,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(morgan("dev"));
+app.use(logger);
 app.use("/api/v1", routes);
 
 export default app;

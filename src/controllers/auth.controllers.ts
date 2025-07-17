@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import config from "../config";
+import logger from "../utils/logger";
 
 export const registerController = async (req: Request, res: Response) => {
   try {
@@ -46,6 +47,7 @@ export const registerController = async (req: Request, res: Response) => {
       success: true,
     });
   } catch (error) {
+    logger.error(`Registration failed: ${(error as Error).message}`);
     if (!res.headersSent) {
       res
         .status(500)
@@ -102,6 +104,7 @@ export const loginController = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Login successful", success: true, token });
   } catch (error) {
+    logger.error(`Login failed: ${(error as Error).message}`);
     if (!res.headersSent) {
       res.status(500).json({ message: "Failed to login user", success: false });
     }

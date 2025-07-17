@@ -1,4 +1,4 @@
-import { blockAfterLimit, loginRateLimiter } from "./rateLimiter";
+import { loginRateLimiter } from "./rateLimiter.middleware";
 import { isAuthenticated } from "./auth.middleware";
 
-export { isAuthenticated, blockAfterLimit, loginRateLimiter };
+export { isAuthenticated, loginRateLimiter };

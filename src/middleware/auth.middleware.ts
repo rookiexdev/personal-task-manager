@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import config from "../config";
 import { NextFunction, Request, Response } from "express";
+import logger from "../utils/logger";
 
 export function isAuthenticated(
   req: Request,
@@ -25,6 +26,7 @@ export function isAuthenticated(
     (req as any).userId = decoded.userId;
     next();
   } catch (err) {
+    logger.error(`Failed to authenticate user: ${(err as Error).message}`);
     return res.status(401).json({ message: "Invalid token" });
   }
 }

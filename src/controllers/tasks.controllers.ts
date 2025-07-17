@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { Task } from "../models";
 import { Op, WhereOptions } from "sequelize";
+import logger from "../utils/logger";
 
 export const getAllTasks = async (req: any, res: Response) => {
   try {
@@ -46,6 +47,7 @@ export const getAllTasks = async (req: any, res: Response) => {
 
     res.status(200).json(tasks);
   } catch (error) {
+    logger.error(`Failed to get all tasks: ${(error as Error).message}`);
     if (!res.headersSent) {
       res
         .status(500)
@@ -92,6 +94,7 @@ export const createTask = async (req: any, res: Response) => {
       success: true,
     });
   } catch (error) {
+    logger.error(`Failed to create task: ${(error as Error).message}`);
     if (!res.headersSent) {
       res
         .status(500)
@@ -115,6 +118,7 @@ export const getTaskById = async (req: any, res: Response) => {
 
     return res.status(200).json(task);
   } catch (error) {
+    logger.error(`Failed to get task: ${(error as Error).message}`);
     if (!res.headersSent) {
       res.status(500).json({ message: "Failed to get task", success: false });
     }
@@ -140,6 +144,7 @@ export const updateTask = async (req: any, res: Response) => {
       .status(200)
       .json({ message: "Task updated", task, success: true });
   } catch (err) {
+    logger.error(`Failed to update task: ${(err as Error).message}`);
     if (!res.headersSent) {
       return res
         .status(500)
@@ -166,6 +171,7 @@ export const deleteTask = async (req: any, res: Response) => {
       .status(200)
       .json({ message: "Task deleted successfully", success: true });
   } catch (err) {
+    logger.error(`Task deletion failed: ${(err as Error).message}`);
     if (!res.headersSent) {
       return res
         .status(500)
