@@ -1,4 +1,7 @@
-import { loginRateLimiter } from "./rateLimiter.middleware";
+import {
+  loginRateLimiter,
+  loginRateLimiterMiddleware,
+} from "./rateLimiter.middleware";
 import { isAuthenticated } from "./auth.middleware";
 
-export { isAuthenticated, loginRateLimiter };
+export { isAuthenticated, loginRateLimiter, loginRateLimiterMiddleware };
