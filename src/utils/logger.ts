@@ -2,15 +2,26 @@ import { createLogger, format, transports } from "winston";
 import path from "path";
 import fs from "fs";
 
+const arg = process.argv.slice(2);
+const args = arg.reduce((acc: { [key: string]: string }, curr: string) => {
+  const [key, value] = curr.split("=");
+  acc[key] = value;
+  return acc;
+}, {});
+
+const logFormat = args.logFormat || "simple";
+const logLevel = args.logLevel || "info";
+
 const logDir = path.join(__dirname, "../../logs");
 if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
 
 const filterOnly = (level: string) =>
   format((info) => (info.level === level ? info : false))();
 
-const logger = createLogger({
-  level: "debug",
-  format: format.combine(
+const config = {
+  json: format.json(),
+  simple: format.simple(),
+  pretty: format.combine(
     format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss",
     }),
@@ -18,6 +29,11 @@ const logger = createLogger({
     format.splat(),
     format.json()
   ),
+} as { [key: string]: any };
+
+const logger = createLogger({
+  level: logLevel,
+  format: config[logFormat] || config.simple,
   transports: [
     new transports.File({
       filename: path.join(logDir, "error.log"),
